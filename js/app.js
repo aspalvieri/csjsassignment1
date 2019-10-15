@@ -290,7 +290,8 @@ function fetchGifs(e) {
       data.data.forEach(gif => gifs.push({
         image_small_still: gif.images.fixed_height_small_still.url,
         image_small: gif.images.fixed_height_small.url,
-        image_original: gif.images.original.url
+        image_original: gif.images.original.url,
+        image_original_mp4: gif.images.original_mp4.mp4
       }));
     })
     .then(() => browseGif.innerHTML = gifs.map((gif,i) => `<img data-index=${i} src="${switchgifsbutton.dataset.toggled == "false" ? gif.image_small_still : gif.image_small}"/>`).join(""));
@@ -299,7 +300,7 @@ function fetchGifs(e) {
 function handleGifSelect(e) {
   e.preventDefault();
   if (e.target.matches("img")) {
-    imgGifPoll.innerHTML = `<img class="thumb" src="${gifs[e.target.dataset.index].image_original}" style="width: 100%"/>`;
+    imgGifPoll.innerHTML = `<video controls><source class="thumb" src="${gifs[e.target.dataset.index].image_original_mp4}" type="video/mp4" style="width: 100%"/></video>`;
     $("#insertgif").modal("hide");
     gifs = [];
     browseGif.innerHTML = "";
